@@ -1,0 +1,105 @@
+% note that the document can be single or double sided.  
+%\documentclass[12pt,twoside]{report}
+\documentclass[12pt,openright,twoside]{report}
+\pdfminorversion=7
+\pdfobjcompresslevel=3
+
+\setlength{\pdfpagewidth}{8.5in}
+\setlength{\pdfpageheight}{11in}
+
+\usepackage[online]{suthesis-2e}
+%\usepackage{suthesis-2e}
+
+\usepackage{url}
+\usepackage{amsmath, amssymb,amsthm}
+\usepackage{amsfonts}
+\usepackage{bbm}
+\usepackage{mathrsfs}
+\usepackage{graphicx}
+\usepackage{array}
+%\usepackage[subfigure]{graphfig}
+\usepackage{comment}
+\usepackage{enumerate}
+\usepackage{multicol}
+\usepackage{color}
+\usepackage{caption}
+\usepackage{subcaption}
+% make acronym
+\usepackage[intoc]{nomencl}
+\makenomenclature
+\usepackage{datatool}
+\usepackage{enumitem}
+\usepackage{afterpage}
+\usepackage{fancyhdr}
+%\usepackage{kantlipsum}
+
+\usepackage{float}
+\floatstyle{ruled}
+\newfloat{algorithm}{htp}{lop}
+\floatname{algorithm}{Algorithm}
+
+\usepackage{cite}
+\usepackage{hyperref}
+\usepackage{multirow}
+\usepackage{array}
+\newcolumntype{L}{>{\centering\arraybackslash}m{2cm}}
+
+\begin{document}
+
+    \title{Advanced Computing and Automation in Radiation Therapy Treatment Planning}
+    \author{Henry Wang}
+    \dept{Electrical Engineering}
+    \principaladviser{Lei Xing}
+    \firstreader{Daniel Spielman}
+    \secondreader{Yinyu Ye}
+    \submitdate{May 2016}
+    
+\beforepreface
+%\onlinesignature
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% abstract
+\include{abstract}
+%\graphicspath { {./figures/chap1/}{./figures/chap2/}{./figures/chap3/}{./figures/chap4/}{./figures/chap5/}{./figures/chap6/}{./figures/appendix/} }
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% acknowledgement
+\include{acknowledge}
+
+\afterpreface
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Chapter 1, Introduction
+\include{chap1}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Chapter 2, Non-coplanar Reconstruction
+\include{chap2}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Chapter 3, Scatter Correction
+\include{chap3}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Chapter 5, Binary Reconstruction of Metal
+\include{chap4}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Chapter 5, Summary and Future Works
+\include{chap5}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% need to run cmd first --- bibtex Suthesis-HenryWang.aux
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{mybib}
+
+
+%\onlinesignature
+
+\end{document}

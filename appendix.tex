@@ -1,0 +1,89 @@
+\appendix
+\chapter{ADMM Algorithm in Section 3.2.4} \label{App:AppendixA}
+
+The L1 analysis problem in Eq. \eqref{eq:eq3.10} is
+
+\begin{align}\label{eq:eqA1}
+\min \quad &
+\frac{1}{2}(x-S_{h})^{T}\Sigma^{-1}(x-S_{h})+\lambda \| Wx  \|_{1} \nonumber\\
+\text{s.t.} \quad & x\geq0
+\end{align}
+
+
+The algorithm for solving Eq. \eqref{eq:eqA1} can be written as
+
+\begin{align*}
+& x_{k+1} = \arg\min( \frac{1}{2}(x_{k} - S_{h})^{T} \Sigma^{-1} (x_{k} - S_{H}) + \lambda \|Wx\|_{1})\\
+& x_{k+1} = (x_{k+1})_{+} \\
+\end{align*}
+
+To solve the first step, we can write it as
+
+\begin{align}\label{eq:eqA2}
+\min \quad &
+\frac{1}{2}(x_{k}-S_{h})^{T}\Sigma^{-1}(x_{k}-S_{h})+\lambda \| z  \|_{1} \nonumber\\
+\text{s.t.} \quad & z = Wx_{k}
+\end{align}
+
+We can add a smoothing term into the objective while not changing it,
+
+\begin{align}\label{eq:eqA3}
+\min \quad &
+\frac{1}{2}(x_{k}-S_{h})^{T}\Sigma^{-1}(x_{k}-S_{h})+\lambda \| z  \|_{1} + \frac{\rho}{2} \| z-Wx_{k}||_{2}^{2} \nonumber\\
+\text{s.t.} \quad & z = Wx_{k}
+\end{align}
+
+The dual problem can be written as
+
+\begin{align}\label{eq:eqA4}
+\max \quad &
+\inf_{x} \frac{1}{2}(x_{k}-S_{h})^{T}\Sigma^{-1}(x_{k}-S_{h})+\lambda \| z  \|_{1} + \frac{\rho}{2} \| z-Wx_{k}||_{2}^{2} + y(z - Wx_{k})
+\end{align}
+
+With ADMM method, this can be solved iteratively by the following algorithm:
+
+\begin{align*}
+& x_{k+1} = (\Sigma^{-1} + \rho W^{T}W^{-1})(\Sigma S_{h} + \rho W^{T}_{z_{k}} - W^{T}_{y_{k}}) \\
+& z_{k+1} = soft\_thresh(W^{T}x_{k} + y_{k} / \rho, \lambda / \rho) \\
+& y_{k+1} = y_{k} + \rho (W^T x_{k} - z_{k})
+\end{align*}
+
+where the soft-thresholding function is defined as
+
+\begin{align}\label{eq:eqA5}
+soft\_threshold(x, \tau) = sgn(x)\cdot max(|x| - \tau, 0)
+\end{align}
+
+Since $W^{T}W = I$ is an identity matrix, and $\Sigma^{-1}$ is also diagonal, the whole algorithm can be updated very fast. The convergence is also guaranteed within tens of steps with proper setting of the parameters. In this paper, we tested and set $\lambda = 0.01$ and $\rho = 0.1$.
+
+
+\chapter{Glossary of Symbols Used in Chapter 1, 2, 3 and 4} \label{App:AppendixB}
+
+
+\begin{itemize}
+  \item[] $I$ exiting X-ray photon intensity
+  \item[] $I_{0}$ incident X-ray photon intensity
+  \item[] $\mu(x)$ attenuation coefficient
+  \item[] $P_{\theta}(t)$ projection line integral at angle $\theta$
+  \item[] $S_{\theta}(\omega)$ fourier transform of $P_{\theta}(t)$
+  \item[] $f(x, y)$ attenuation coefficient function in Cartesian coordinate
+  \item[] $\hat{f}(r, \theta)$ reconstructed attenuation coefficient function in polar coordinates
+  \item[] $\vec{s} (\beta)$ source position at angle $\beta$
+  \item[] $p(u, v, \beta)$ projection at $(u, v)$ with angule $\beta$
+  \item[] $p_{v}(u, v, \beta)$ projection at virtual projection plane $(u, v)$ with angule $\beta$
+  \item[] $\hat{f}_{FDK}(x, y, z)$ reconstructed volume by FDK algorithm
+  \item[] $t=(\theta_{x}, \theta_{y}, \theta_{z}, t_{x}, t_{y}, t_{z})$ 3D translation/rotation vector
+  \item[] $ dt=(d\theta_{x}, d\theta_{y}, d\theta_{z}, dt_{x}, dt_{y}, dt_{z})$ additional translation/rotation for prediction
+  \item[] $\widehat{dt}$ reconstructed additional translation/rotation vector
+  \item[] $\Phi_{1, 2}$ sparsifying operations
+  \item[] $A$ CBCT system matrix
+  \item[] $X$ matrix for reconstructed volume
+  \item[] $Y$ matrix for projection measurements
+  \item[] $C_{p}$ constant prior image
+  \item[] $X_{p}$ variable prior image
+  \item[] $P$ primary X-ray photon intensity
+  \item[] $S$ scatter X-ray photon intensity
+  \item[] $S_{i}$ interpolated scatter model
+  \item[] $S_{m}$ convolution scatter model
+  \item[] $S_{h}$ hybrid scatter model
+ \end{itemize}
